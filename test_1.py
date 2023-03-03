@@ -9,9 +9,9 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 ORGANIZER = 'Maja'
-ORGANIZER_FULL_NAME = 'Maja '
+ORGANIZER_FULL_NAME = 'Maja Radovic'
 B_PERSON = 'Nikola'
-B_PERSON_FULL_NAME = 'Nikola'
+B_PERSON_FULL_NAME = 'Nikola Radovic'
 AGE1 = '3'
 AGE_REAL = '38'
 DATE = '2023-05-23'
