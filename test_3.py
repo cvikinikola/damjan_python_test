@@ -22,16 +22,17 @@ def test_correct_total():
     time.sleep(1)
     buttons = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'button[class="btn btn-primary btnPlus"]')))
     #random_indices = random.sample(range(len(buttons)), 6)
-    random_indices = [0, 1, 3, 2, 9, 10, 11]
-    for i, index in enumerate(random_indices):
+    #random_indices = [0, 1, 3, 2, 9, 10, 11]
+    random_numbers = random.sample(range(4), 3) + random.sample(range(9, 12), 2)
+    for i, index in enumerate(random_numbers):
         buttons[index].click()
         time.sleep(3)
-        if i == len(random_indices) - 1:
+        if i == len(random_numbers) - 1:
             buttons[index].click()
             time.sleep(3)
 
     price_list = []
-    for i in random_indices:
+    for i in random_numbers:
         price_filed = driver.find_elements(By.CSS_SELECTOR, '.price')[i]
         price = int(price_filed.text[1:])
         price_list.append(price)
@@ -56,14 +57,14 @@ def test_incorrect_total():
     time.sleep(1)
     buttons = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'button[class="btn btn-primary btnPlus"]')))
     #random_indices = random.sample(range(len(buttons)), 6)
-    random_indices = [0, 1, 3, 2, 9, 10, 11]
-    for i, index in enumerate(random_indices):
+    random_numbers = random.sample(range(4), 3) + random.sample(range(9, 12), 2)
+    for i, index in enumerate(random_numbers):
         buttons[index].click()
-        if i == len(random_indices) - 1:
+        if i == len(random_numbers) - 1:
             buttons[index].click()
 
     price_list = []
-    for i in random_indices:
+    for i in random_numbers:
         price_filed = driver.find_elements(By.CSS_SELECTOR, '.price')[i]
         price = int(price_filed.text[1:])
         price_list.append(price)
