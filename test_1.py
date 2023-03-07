@@ -8,6 +8,17 @@ from datetime import datetime
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+def setup_driver():
+    options = webdriver.ChromeOptions()
+    options.add_argument("-incognito")
+    driver = webdriver.Chrome(chrome_options=options)
+    driver.get('http://10.15.1.204:3000/')
+    driver.maximize_window()
+    problemOrganize = driver.find_element(By.CSS_SELECTOR, "#ftco-nav > ul > li:nth-child(2) > a")
+    problemOrganize.click()
+    time.sleep(1)
+    return driver
+
 ORGANIZER = 'Maja'
 ORGANIZER_FULL_NAME = 'Maja Radovic'
 B_PERSON = 'Nikola'
@@ -29,13 +40,7 @@ ALERGY_TYPES_C = 'Chestnuts'
 
 def test_save_metod():
     #no confirmation for type of allergy
-    options = webdriver.ChromeOptions()
-    options.add_argument("-incognito")
-    driver = webdriver.Chrome(chrome_options=options)
-    driver.get('http://10.15.1.204:3000/')
-    driver.maximize_window()
-    problemOrganize = driver.find_element(By.CSS_SELECTOR, "#ftco-nav > ul > li:nth-child(2) > a")
-    problemOrganize.click()
+    driver = setup_driver()
     organizerName = driver.find_element(By.CLASS_NAME, 'form-control.org')
     birthdayName = driver.find_element(By.CSS_SELECTOR, "input[class='form-control bp']")
     age = driver.find_element(By.ID, "age")
@@ -84,13 +89,7 @@ def test_save_metod():
     assert confirmAlergies.text == ALLERGIES_MAYBE
 
 def test_passed_local_storage_changes():
-    options = webdriver.ChromeOptions()
-    options.add_argument("-incognito")
-    driver = webdriver.Chrome(chrome_options=options)
-    driver.get('http://10.15.1.204:3000/')
-    driver.maximize_window()
-    problemOrganize = driver.find_element(By.CSS_SELECTOR, "#ftco-nav > ul > li:nth-child(2) > a")
-    problemOrganize.click()
+    driver = setup_driver()
     organizerName = driver.find_element(By.CLASS_NAME, 'form-control.org')
     birthdayName = driver.find_element(By.CSS_SELECTOR, "input[class='form-control bp']")
     age = driver.find_element(By.ID, "age")
@@ -140,13 +139,7 @@ def test_passed_local_storage_changes():
     assert storage_which_allergies == ALERGY_TYPES_W
 
 def test_failed_local_storage_changes():
-    options = webdriver.ChromeOptions()
-    options.add_argument("-incognito")
-    driver = webdriver.Chrome(chrome_options=options)
-    driver.get('http://10.15.1.204:3000/')
-    driver.maximize_window()
-    problemOrganize = driver.find_element(By.CSS_SELECTOR, "#ftco-nav > ul > li:nth-child(2) > a")
-    problemOrganize.click()
+    driver = setup_driver()
     organizerName = driver.find_element(By.CLASS_NAME, 'form-control.org')
     birthdayName = driver.find_element(By.CSS_SELECTOR, "input[class='form-control bp']")
     age = driver.find_element(By.ID, "age")
@@ -229,13 +222,7 @@ def test_failed_local_storage_changes():
     assert storage_which_allergies != ALERGY_TYPES_W
 
 def test_failed_local_storage_changes_duple_click_alergies():
-    options = webdriver.ChromeOptions()
-    options.add_argument("-incognito")
-    driver = webdriver.Chrome(chrome_options=options)
-    driver.get('http://10.15.1.204:3000/')
-    driver.maximize_window()
-    problemOrganize = driver.find_element(By.CSS_SELECTOR, "#ftco-nav > ul > li:nth-child(2) > a")
-    problemOrganize.click()
+    driver = setup_driver()
     organizerName = driver.find_element(By.CLASS_NAME, 'form-control.org')
     birthdayName = driver.find_element(By.CSS_SELECTOR, "input[class='form-control bp']")
     age = driver.find_element(By.ID, "age")

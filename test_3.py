@@ -10,7 +10,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-def test_correct_total():
+def setup_driver():
     options = webdriver.ChromeOptions()
     options.add_argument("-incognito")
     driver = webdriver.Chrome(chrome_options=options)
@@ -18,6 +18,11 @@ def test_correct_total():
     driver.maximize_window()
     problem3Menu = driver.find_element(By.CSS_SELECTOR, "#ftco-nav > ul > li:nth-child(4) > a")
     problem3Menu.click()
+    time.sleep(1)
+    return driver
+
+def test_correct_total():
+    driver = setup_driver()
     driver.execute_script("window.scrollBy(0, 450);")
     time.sleep(1)
     buttons = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'button[class="btn btn-primary btnPlus"]')))
@@ -46,13 +51,7 @@ def test_correct_total():
     driver.quit()
 
 def test_incorrect_total():
-    options = webdriver.ChromeOptions()
-    options.add_argument("-incognito")
-    driver = webdriver.Chrome(chrome_options=options)
-    driver.get('http://10.15.1.204:3000/')
-    driver.maximize_window()
-    problem3Menu = driver.find_element(By.CSS_SELECTOR, "#ftco-nav > ul > li:nth-child(4) > a")
-    problem3Menu.click()
+    driver = setup_driver()
     driver.execute_script("window.scrollBy(0, 450);")
     time.sleep(1)
     buttons = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'button[class="btn btn-primary btnPlus"]')))
