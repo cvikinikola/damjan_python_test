@@ -19,6 +19,22 @@ def setup_driver():
     time.sleep(1)
     return driver
 
+def find_elements(driver):
+    organizerName = driver.find_element(By.CLASS_NAME, 'form-control.org')
+    birthdayName = driver.find_element(By.CSS_SELECTOR, "input[class='form-control bp']")
+    age = driver.find_element(By.ID, "age")
+    when = driver.find_element(By.ID, "date")
+    time_party = driver.find_element(By.ID, "time")
+    persons21 = driver.find_element(By.CSS_SELECTOR, "#persons > option:nth-child(5)")
+    persons11 = driver.find_element(By.CSS_SELECTOR, "#persons > option:nth-child(4)")
+    alergiesNo = driver.find_element(By.ID, "alg_n")
+    alergiesMaybe = driver.find_element(By.ID, "alg_m")
+    alergiesYes = driver.find_element(By.ID, "alg_y")
+    wallnutsAlergies = driver.find_element(By.ID, "alg1")
+    chestnutsAlergies = driver.find_element(By.ID, "alg2")
+    btnOrganize = driver.find_element(By.CSS_SELECTOR, "body > section.ftco-section.ftco-no-pt.ftco-no-pb > div > div > div.col-md-7.ftco-animate.makereservation.p-4.p-md-5.fadeInUp.ftco-animated > form > div > div.col-md-12.mt-3 > div > p > a")
+    return organizerName, birthdayName, age, when, time_party, persons21, persons11, alergiesNo, alergiesMaybe, alergiesYes, wallnutsAlergies, chestnutsAlergies, btnOrganize
+
 ORGANIZER = 'Maja'
 ORGANIZER_FULL_NAME = 'Maja Radovic'
 B_PERSON = 'Nikola'
@@ -38,22 +54,11 @@ ALERGY_TYPES_W = 'Wallnuts'
 ALERGY_TYPES_C = 'Chestnuts'
 
 
+
 def test_save_metod():
     #no confirmation for type of allergy
     driver = setup_driver()
-    organizerName = driver.find_element(By.CLASS_NAME, 'form-control.org')
-    birthdayName = driver.find_element(By.CSS_SELECTOR, "input[class='form-control bp']")
-    age = driver.find_element(By.ID, "age")
-    when = driver.find_element(By.ID, "date")
-    time_party = driver.find_element(By.ID, "time")
-    persons21 = driver.find_element(By.CSS_SELECTOR, "#persons > option:nth-child(5)")
-    persons11 = driver.find_element(By.CSS_SELECTOR, "#persons > option:nth-child(4)")
-    alergiesNo = driver.find_element(By.ID, "alg_n")
-    alergiesMaybe = driver.find_element(By.ID, "alg_m")
-    alergiesYes = driver.find_element(By.ID, "alg_y")
-    wallnutsAlergies = driver.find_element(By.ID, "alg1")
-    chestnutsAlergies = driver.find_element(By.ID, "alg2")
-    btnOrganize = driver.find_element(By.CSS_SELECTOR, "body > section.ftco-section.ftco-no-pt.ftco-no-pb > div > div > div.col-md-7.ftco-animate.makereservation.p-4.p-md-5.fadeInUp.ftco-animated > form > div > div.col-md-12.mt-3 > div > p > a")
+    organizerName, birthdayName, age, when, time_party, persons21, persons11, alergiesNo, alergiesMaybe, alergiesYes, wallnutsAlergies, chestnutsAlergies, btnOrganize = find_elements(driver)
 
     organizerName.send_keys(ORGANIZER)
     birthdayName.send_keys(B_PERSON)
@@ -90,20 +95,7 @@ def test_save_metod():
 
 def test_passed_local_storage_changes():
     driver = setup_driver()
-    organizerName = driver.find_element(By.CLASS_NAME, 'form-control.org')
-    birthdayName = driver.find_element(By.CSS_SELECTOR, "input[class='form-control bp']")
-    age = driver.find_element(By.ID, "age")
-    when = driver.find_element(By.ID, "date")
-    time_party = driver.find_element(By.ID, "time")
-    persons21 = driver.find_element(By.CSS_SELECTOR, "#persons > option:nth-child(5)")
-    persons11 = driver.find_element(By.CSS_SELECTOR, "#persons > option:nth-child(4)")
-    alergiesNo = driver.find_element(By.ID, "alg_n")
-    alergiesMaybe = driver.find_element(By.ID, "alg_m")
-    alergiesYes = driver.find_element(By.ID, "alg_y")
-    wallnutsAlergies = driver.find_element(By.ID, "alg1")
-    chestnutsAlergies = driver.find_element(By.ID, "alg2")
-    btnOrganize = driver.find_element(By.CSS_SELECTOR, "body > section.ftco-section.ftco-no-pt.ftco-no-pb > div > div > div.col-md-7.ftco-animate.makereservation.p-4.p-md-5.fadeInUp.ftco-animated > form > div > div.col-md-12.mt-3 > div > p > a")
-
+    organizerName, birthdayName, age, when, time_party, persons21, persons11, alergiesNo, alergiesMaybe, alergiesYes, wallnutsAlergies, chestnutsAlergies, btnOrganize = find_elements(driver)
     organizerName.send_keys(ORGANIZER)
     birthdayName.send_keys(B_PERSON)
     age.send_keys(AGE1)
@@ -140,20 +132,7 @@ def test_passed_local_storage_changes():
 
 def test_failed_local_storage_changes():
     driver = setup_driver()
-    organizerName = driver.find_element(By.CLASS_NAME, 'form-control.org')
-    birthdayName = driver.find_element(By.CSS_SELECTOR, "input[class='form-control bp']")
-    age = driver.find_element(By.ID, "age")
-    when = driver.find_element(By.ID, "date")
-    time_party = driver.find_element(By.ID, "time")
-    persons21 = driver.find_element(By.CSS_SELECTOR, "#persons > option:nth-child(5)")
-    persons11 = driver.find_element(By.CSS_SELECTOR, "#persons > option:nth-child(4)")
-    alergiesNo = driver.find_element(By.ID, "alg_n")
-    alergiesMaybe = driver.find_element(By.ID, "alg_m")
-    alergiesYes = driver.find_element(By.ID, "alg_y")
-    wallnutsAlergies = driver.find_element(By.ID, "alg1")
-    chestnutsAlergies = driver.find_element(By.ID, "alg2")
-    btnOrganize = driver.find_element(By.CSS_SELECTOR, "body > section.ftco-section.ftco-no-pt.ftco-no-pb > div > div > div.col-md-7.ftco-animate.makereservation.p-4.p-md-5.fadeInUp.ftco-animated > form > div > div.col-md-12.mt-3 > div > p > a")
-
+    organizerName, birthdayName, age, when, time_party, persons21, persons11, alergiesNo, alergiesMaybe, alergiesYes, wallnutsAlergies, chestnutsAlergies, btnOrganize = find_elements(driver)
     organizerName.send_keys(ORGANIZER)
     birthdayName.send_keys(B_PERSON)
     age.send_keys(AGE1)
@@ -223,20 +202,7 @@ def test_failed_local_storage_changes():
 
 def test_failed_local_storage_changes_duple_click_alergies():
     driver = setup_driver()
-    organizerName = driver.find_element(By.CLASS_NAME, 'form-control.org')
-    birthdayName = driver.find_element(By.CSS_SELECTOR, "input[class='form-control bp']")
-    age = driver.find_element(By.ID, "age")
-    when = driver.find_element(By.ID, "date")
-    time_party = driver.find_element(By.ID, "time")
-    persons21 = driver.find_element(By.CSS_SELECTOR, "#persons > option:nth-child(5)")
-    persons11 = driver.find_element(By.CSS_SELECTOR, "#persons > option:nth-child(4)")
-    alergiesNo = driver.find_element(By.ID, "alg_n")
-    alergiesMaybe = driver.find_element(By.ID, "alg_m")
-    alergiesYes = driver.find_element(By.ID, "alg_y")
-    wallnutsAlergies = driver.find_element(By.ID, "alg1")
-    chestnutsAlergies = driver.find_element(By.ID, "alg2")
-    btnOrganize = driver.find_element(By.CSS_SELECTOR, "body > section.ftco-section.ftco-no-pt.ftco-no-pb > div > div > div.col-md-7.ftco-animate.makereservation.p-4.p-md-5.fadeInUp.ftco-animated > form > div > div.col-md-12.mt-3 > div > p > a")
-
+    organizerName, birthdayName, age, when, time_party, persons21, persons11, alergiesNo, alergiesMaybe, alergiesYes, wallnutsAlergies, chestnutsAlergies, btnOrganize = find_elements(driver)
     organizerName.send_keys(ORGANIZER)
     birthdayName.send_keys(B_PERSON)
     age.send_keys(AGE1)
