@@ -8,7 +8,59 @@ from datetime import datetime
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+summer = None
+winter = None
+tea = None
+coffee = None
+white = None
+black = None
+sweet = None
+salty = None
+sour = None
+hot = None
+spoon = None
+fork = None
+deep = None
+shallow = None
+fruit = None
+vegetables = None
+cocktail = None
+beer = None
+readMyMind = None
+
+
+def setup_driver():
+    options = webdriver.ChromeOptions()
+    options.add_argument("-incognito")
+    driver = webdriver.Chrome(chrome_options=options)
+    driver.get('http://10.15.1.204:3000/')
+    driver.maximize_window()
+    problem2 = driver.find_element(By.CSS_SELECTOR, "#ftco-nav > ul > li:nth-child(3) > a")
+    problem2.click()
+    time.sleep(1)
+    return driver
+
 def get_elements(driver):
+    global summer
+    global winter
+    global tea
+    global coffee
+    global coffee
+    global white
+    global black
+    global sweet
+    global salty
+    global sour
+    global hot
+    global spoon
+    global fork
+    global deep
+    global shallow
+    global fruit
+    global vegetables
+    global cocktail
+    global beer
+    global readMyMind
     summer = driver.find_element(By.ID, "btn1")
     winter = driver.find_element(By.ID, "btn2")
     tea = driver.find_element(By.ID, "btn3")
@@ -29,50 +81,16 @@ def get_elements(driver):
     beer = driver.find_element(By.ID, "btn18")
     readMyMind = driver.find_element(By.ID, "readmymind")
 
-    return {
-        "summer": summer,
-        "winter": winter,
-        "tea": tea,
-        "coffee": coffee,
-        "white": white,
-        "black": black,
-        "sweet": sweet,
-        "salty": salty,
-        "sour": sour,
-        "hot": hot,
-        "spoon": spoon,
-        "fork": fork,
-        "deep": deep,
-        "shallow": shallow,
-        "fruit": fruit,
-        "vegetables": vegetables,
-        "cocktail": cocktail,
-        "beer": beer,
-        "readMyMind": readMyMind
-    }
-
-def setup_driver():
-    options = webdriver.ChromeOptions()
-    options.add_argument("-incognito")
-    driver = webdriver.Chrome(chrome_options=options)
-    driver.get('http://10.15.1.204:3000/')
-    driver.maximize_window()
-    problem2 = driver.find_element(By.CSS_SELECTOR, "#ftco-nav > ul > li:nth-child(3) > a")
-    problem2.click()
-    time.sleep(1)
-    return driver
-
 def test_avocado_o():
     driver = setup_driver()
-
-    elements = get_elements(driver)
-    left_button = [elements["summer"], elements["tea"], elements["white"], elements["sweet"], elements["sour"], elements["spoon"], elements["deep"], elements["fruit"], elements["cocktail"]]
-    right_button = [elements["winter"], elements["coffee"], elements["black"], elements["salty"], elements["hot"], elements["fork"], elements["shallow"], elements["vegetables"], elements["beer"]]
+    get_elements(driver)
+    left_button = [summer, tea, white, sweet, sour, spoon, deep, fruit, cocktail]
+    right_button = [winter, coffee, black, salty, hot, fork, shallow, vegetables, beer]
 
     avokado_buttons = right_button[:9]
     for index in avokado_buttons:
         index.click()
-    elements["readMyMind"].click()
+    readMyMind.click()
     expectedResult = "Avocado Benedict"
     recommendation = driver.find_element(By.ID, 'recHeader')
     assert recommendation.text == expectedResult
@@ -82,14 +100,14 @@ def test_avocado_o():
 def test_avocado_1():
     driver = setup_driver()
 
-    elements = get_elements(driver)
-    left_button = [elements["summer"], elements["tea"], elements["white"], elements["sweet"], elements["sour"], elements["spoon"], elements["deep"], elements["fruit"], elements["cocktail"]]
-    right_button = [elements["winter"], elements["coffee"], elements["black"], elements["salty"], elements["hot"], elements["fork"], elements["shallow"], elements["vegetables"], elements["beer"]]
+    get_elements(driver)
+    left_button = [summer, tea, white, sweet, sour, spoon, deep, fruit, cocktail]
+    right_button = [winter, coffee, black, salty, hot, fork, shallow, vegetables, beer]
 
     avokado_buttons = right_button[:8] + [left_button[-1]]
     for index in avokado_buttons:
         index.click()
-    elements["readMyMind"].click()
+    readMyMind.click()
     expectedResult = "Avocado Benedict"
     recommendation = driver.find_element(By.ID, 'recHeader')
     assert recommendation.text == expectedResult
@@ -97,14 +115,14 @@ def test_avocado_1():
 def test_Strawberry_2():
     driver = setup_driver()
 
-    elements = get_elements(driver)
-    left_button = [elements["summer"], elements["tea"], elements["white"], elements["sweet"], elements["sour"], elements["spoon"], elements["deep"], elements["fruit"], elements["cocktail"]]
-    right_button = [elements["winter"], elements["coffee"], elements["black"], elements["salty"], elements["hot"], elements["fork"], elements["shallow"], elements["vegetables"], elements["beer"]]
+    get_elements(driver)
+    left_button = [summer, tea, white, sweet, sour, spoon, deep, fruit, cocktail]
+    right_button = [winter, coffee, black, salty, hot, fork, shallow, vegetables, beer]
 
     avokado_buttons = right_button[:7] + left_button[-2:]
     for index in avokado_buttons:
         index.click()
-    elements["readMyMind"].click()
+    readMyMind.click()
     expectedResult = "Strawberry Sundae"
     recommendation = driver.find_element(By.ID, 'recHeader')
     assert recommendation.text == expectedResult
@@ -112,14 +130,14 @@ def test_Strawberry_2():
 def test_Strawberry_3():
     driver = setup_driver()
 
-    elements = get_elements(driver)
-    left_button = [elements["summer"], elements["tea"], elements["white"], elements["sweet"], elements["sour"], elements["spoon"], elements["deep"], elements["fruit"], elements["cocktail"]]
-    right_button = [elements["winter"], elements["coffee"], elements["black"], elements["salty"], elements["hot"], elements["fork"], elements["shallow"], elements["vegetables"], elements["beer"]]
+    get_elements(driver)
+    left_button = [summer, tea, white, sweet, sour, spoon, deep, fruit, cocktail]
+    right_button = [winter, coffee, black, salty, hot, fork, shallow, vegetables, beer]
 
     avokado_buttons = right_button[:6] + left_button[-3:]
     for index in avokado_buttons:
         index.click()
-    elements["readMyMind"].click()
+    readMyMind.click()
     expectedResult = "Strawberry Sundae"
     recommendation = driver.find_element(By.ID, 'recHeader')
     assert recommendation.text == expectedResult
@@ -127,14 +145,14 @@ def test_Strawberry_3():
 def test_Soy_4():
     driver = setup_driver()
 
-    elements = get_elements(driver)
-    left_button = [elements["summer"], elements["tea"], elements["white"], elements["sweet"], elements["sour"], elements["spoon"], elements["deep"], elements["fruit"], elements["cocktail"]]
-    right_button = [elements["winter"], elements["coffee"], elements["black"], elements["salty"], elements["hot"], elements["fork"], elements["shallow"], elements["vegetables"], elements["beer"]]
+    get_elements(driver)
+    left_button = [summer, tea, white, sweet, sour, spoon, deep, fruit, cocktail]
+    right_button = [winter, coffee, black, salty, hot, fork, shallow, vegetables, beer]
 
     avokado_buttons = right_button[:5] + left_button[-4:]
     for index in avokado_buttons:
         index.click()
-    elements["readMyMind"].click()
+    readMyMind.click()
     expectedResult = "Soy Salmon"
     recommendation = driver.find_element(By.ID, 'recHeader')
     assert recommendation.text == expectedResult
@@ -142,14 +160,14 @@ def test_Soy_4():
 def test_Soy_5():
     driver = setup_driver()
 
-    elements = get_elements(driver)
-    left_button = [elements["summer"], elements["tea"], elements["white"], elements["sweet"], elements["sour"], elements["spoon"], elements["deep"], elements["fruit"], elements["cocktail"]]
-    right_button = [elements["winter"], elements["coffee"], elements["black"], elements["salty"], elements["hot"], elements["fork"], elements["shallow"], elements["vegetables"], elements["beer"]]
+    get_elements(driver)
+    left_button = [summer, tea, white, sweet, sour, spoon, deep, fruit, cocktail]
+    right_button = [winter, coffee, black, salty, hot, fork, shallow, vegetables, beer]
 
     avokado_buttons = right_button[:4] + left_button[-5:]
     for index in avokado_buttons:
         index.click()
-    elements["readMyMind"].click()
+    readMyMind.click()
     expectedResult = "Soy Salmon"
     recommendation = driver.find_element(By.ID, 'recHeader')
     assert recommendation.text == expectedResult
@@ -157,14 +175,14 @@ def test_Soy_5():
 def test_Culiflower_6():
     driver = setup_driver()
 
-    elements = get_elements(driver)
-    left_button = [elements["summer"], elements["tea"], elements["white"], elements["sweet"], elements["sour"], elements["spoon"], elements["deep"], elements["fruit"], elements["cocktail"]]
-    right_button = [elements["winter"], elements["coffee"], elements["black"], elements["salty"], elements["hot"], elements["fork"], elements["shallow"], elements["vegetables"], elements["beer"]]
+    get_elements(driver)
+    left_button = [summer, tea, white, sweet, sour, spoon, deep, fruit, cocktail]
+    right_button = [winter, coffee, black, salty, hot, fork, shallow, vegetables, beer]
 
     avokado_buttons = right_button[:3] + left_button[-6:]
     for index in avokado_buttons:
         index.click()
-    elements["readMyMind"].click()
+    readMyMind.click()
     expectedResult = "Culiflower Dipper"
     recommendation = driver.find_element(By.ID, 'recHeader')
     assert recommendation.text == expectedResult
@@ -172,28 +190,28 @@ def test_Culiflower_6():
 def test_Culiflower_7():
     driver = setup_driver()
 
-    elements = get_elements(driver)
-    left_button = [elements["summer"], elements["tea"], elements["white"], elements["sweet"], elements["sour"], elements["spoon"], elements["deep"], elements["fruit"], elements["cocktail"]]
-    right_button = [elements["winter"], elements["coffee"], elements["black"], elements["salty"], elements["hot"], elements["fork"], elements["shallow"], elements["vegetables"], elements["beer"]]
+    get_elements(driver)
+    left_button = [summer, tea, white, sweet, sour, spoon, deep, fruit, cocktail]
+    right_button = [winter, coffee, black, salty, hot, fork, shallow, vegetables, beer]
 
     avokado_buttons = right_button[:2] + left_button[-7:]
     for index in avokado_buttons:
         index.click()
-    elements["readMyMind"].click()
+    readMyMind.click()
     expectedResult = "Culiflower Dipper"
     recommendation = driver.find_element(By.ID, 'recHeader')
     assert recommendation.text == expectedResult
 def test_Blonde_8():
     driver = setup_driver()
 
-    elements = get_elements(driver)
-    left_button = [elements["summer"], elements["tea"], elements["white"], elements["sweet"], elements["sour"], elements["spoon"], elements["deep"], elements["fruit"], elements["cocktail"]]
-    right_button = [elements["winter"], elements["coffee"], elements["black"], elements["salty"], elements["hot"], elements["fork"], elements["shallow"], elements["vegetables"], elements["beer"]]
+    get_elements(driver)
+    left_button = [summer, tea, white, sweet, sour, spoon, deep, fruit, cocktail]
+    right_button = [winter, coffee, black, salty, hot, fork, shallow, vegetables, beer]
 
     avokado_buttons = right_button[:1] + left_button[-8:]
     for index in avokado_buttons:
         index.click()
-    elements["readMyMind"].click()
+    readMyMind.click()
     expectedResult = "Blonde"
     recommendation = driver.find_element(By.ID, 'recHeader')
     assert recommendation.text == expectedResult
@@ -201,14 +219,14 @@ def test_Blonde_8():
 def test_Blonde_9():
     driver = setup_driver()
 
-    elements = get_elements(driver)
-    left_button = [elements["summer"], elements["tea"], elements["white"], elements["sweet"], elements["sour"], elements["spoon"], elements["deep"], elements["fruit"], elements["cocktail"]]
-    right_button = [elements["winter"], elements["coffee"], elements["black"], elements["salty"], elements["hot"], elements["fork"], elements["shallow"], elements["vegetables"], elements["beer"]]
+    get_elements(driver)
+    left_button = [summer, tea, white, sweet, sour, spoon, deep, fruit, cocktail]
+    right_button = [winter, coffee, black, salty, hot, fork, shallow, vegetables, beer]
 
     avokado_buttons = left_button[:9]
     for index in avokado_buttons:
         index.click()
-    elements["readMyMind"].click()
+    readMyMind.click()
     expectedResult = "Blonde"
     recommendation = driver.find_element(By.ID, 'recHeader')
     assert recommendation.text == expectedResult
