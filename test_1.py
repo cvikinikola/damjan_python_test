@@ -73,6 +73,15 @@ def test_save_metod():
     time_party.send_keys(TIME)
     persons21.click()
     alergiesMaybe.click()
+
+    text_organizerName = organizerName.get_attribute('value')
+    text_birthdayName = birthdayName.get_attribute('value')
+    text_age = age.get_attribute('value')
+    text_when = when.get_attribute('value')
+    text_time_party = time_party.get_attribute('value')
+    text_persons21 = persons21.get_attribute('text')
+    text_alergiesMaybe = alergiesMaybe.get_attribute('value')
+
     btnOrganize.click()
 
     confirmOrganizerName = driver.find_element(By.ID, "orr")
@@ -80,22 +89,23 @@ def test_save_metod():
     confirmAge = driver.find_element(By.ID, "agr")
     confirmWhen = driver.find_element(By.ID, "dtr")
     confirmTime = driver.find_element(By.ID, "tmr")
-    dt = datetime.strptime(TIME, '%I:%M%p')
-    TIME_24h = dt.strftime('%H:%M')
+    #dt = datetime.strptime(TIME, '%I:%M%p')
+    #TIME_24h = dt.strftime('%H:%M')
     confirmPersons = driver.find_element(By.ID, "gur")
     confirmAlergies = driver.find_element(By.ID, "alr")
 
-    assert confirmOrganizerName.text == ORGANIZER
-    assert confirmBirthdayName.text == B_PERSON
-    assert confirmAge.text == AGE1
-    assert confirmWhen.text == DATE
-    assert confirmTime.text == TIME_24h
-    assert confirmPersons.text == PERSON21
-    assert confirmAlergies.text == ALLERGIES_MAYBE
+    assert confirmOrganizerName.text == text_organizerName
+    assert confirmBirthdayName.text == text_birthdayName
+    assert confirmAge.text == text_age
+    assert confirmWhen.text == text_when
+    assert confirmTime.text == text_time_party
+    assert confirmPersons.text == text_persons21
+    assert confirmAlergies.text == text_alergiesMaybe
 
 def test_passed_local_storage_changes():
     driver = setup_driver()
     organizerName, birthdayName, age, when, time_party, persons21, persons11, alergiesNo, alergiesMaybe, alergiesYes, wallnutsAlergies, chestnutsAlergies, btnOrganize = find_elements(driver)
+
     organizerName.send_keys(ORGANIZER)
     birthdayName.send_keys(B_PERSON)
     age.send_keys(AGE1)
@@ -111,24 +121,77 @@ def test_passed_local_storage_changes():
     alergiesMaybe.click()
     wallnutsAlergies.click()
 
+    text_organizerName = organizerName.get_attribute('value')
+    text_birthdayName = birthdayName.get_attribute('value')
+    text_age = age.get_attribute('value')
+    text_when = when.get_attribute('value')
+    text_time_party = time_party.get_attribute('value')
+    text_persons21 = persons21.get_attribute('text')
+    text_alergiesMaybe = alergiesMaybe.get_attribute('value')
+    text_wallnutsAlergies = wallnutsAlergies.get_attribute('value')
+
     storage_org = driver.execute_script(f'return localStorage.getItem("Organizer")')
-    assert storage_org == ORGANIZER
+    assert storage_org == text_organizerName
     storage_bp = driver.execute_script(f'return localStorage.getItem("Birthday_Person")')
-    assert storage_bp == B_PERSON
+    assert storage_bp == text_birthdayName
     storage_age = driver.execute_script(f'return localStorage.getItem("Age")')
-    assert storage_age == AGE1
+    assert storage_age == text_age
     storage_date = driver.execute_script(f'return localStorage.getItem("Date")')
-    assert storage_date == DATE
+    assert storage_date == text_when
     storage_time = driver.execute_script(f'return localStorage.getItem("Time")')
-    dt = datetime.strptime(TIME, '%I:%M%p')
-    TIME_24h = dt.strftime('%H:%M')
-    assert storage_time == TIME_24h
+    #dt = datetime.strptime(TIME, '%I:%M%p')
+    #TIME_24h = dt.strftime('%H:%M')
+    assert storage_time == text_time_party
     storage_pers = driver.execute_script(f'return localStorage.getItem("Number_Of_People")')
-    assert storage_pers == PERSON21
+    assert storage_pers == text_persons21
     storage_allergies = driver.execute_script(f'return localStorage.getItem("alergy")')
-    assert storage_allergies == ALLERGIES_MAYBE
+    assert storage_allergies == text_alergiesMaybe
     storage_which_allergies = driver.execute_script(f'return localStorage.getItem("alergies")')
-    assert storage_which_allergies == ALERGY_TYPES_W
+    assert storage_which_allergies == text_wallnutsAlergies
+
+    organizerName.clear()
+    organizerName.send_keys(ORGANIZER_FULL_NAME)
+    birthdayName.clear()
+    birthdayName.send_keys(B_PERSON_FULL_NAME)
+    age.clear()
+    age.send_keys(AGE_REAL)
+    when.send_keys(Keys.RIGHT)
+    for i in range(3):
+        when.send_keys(Keys.DOWN)
+    time_party.clear()
+    time_party.send_keys(REAL_TIME)
+    persons11.click()
+    alergiesYes.click()
+    chestnutsAlergies.click()
+
+    text_organizerName = organizerName.get_attribute('value')
+    text_birthdayName = birthdayName.get_attribute('value')
+    text_age = age.get_attribute('value')
+    text_when = when.get_attribute('value')
+    text_time_party = time_party.get_attribute('value')
+    text_persons11 = persons11.get_attribute('text')
+    text_alergiesYes = alergiesYes.get_attribute('value')
+    text_wallnutsAlergies = wallnutsAlergies.get_attribute('value')
+    text_chestnutsAlergies = chestnutsAlergies.get_attribute('value')
+
+    storage_org = driver.execute_script(f'return localStorage.getItem("Organizer")')
+    assert storage_org == text_organizerName
+    storage_bp = driver.execute_script(f'return localStorage.getItem("Birthday_Person")')
+    assert storage_bp == text_birthdayName
+    storage_age = driver.execute_script(f'return localStorage.getItem("Age")')
+    assert storage_age == text_age
+    storage_date = driver.execute_script(f'return localStorage.getItem("Date")')
+    assert storage_date == text_when
+    storage_time = driver.execute_script(f'return localStorage.getItem("Time")')
+    #dt = datetime.strptime(REAL_TIME, '%I:%M%p')
+    #TIME_24h = dt.strftime('%H:%M')
+    assert storage_time == text_time_party
+    storage_pers = driver.execute_script(f'return localStorage.getItem("Number_Of_People")')
+    assert storage_pers == text_persons11
+    storage_allergies = driver.execute_script(f'return localStorage.getItem("alergy")')
+    assert storage_allergies == text_alergiesYes
+    storage_which_allergies = driver.execute_script(f'return localStorage.getItem("alergies")')
+    assert storage_which_allergies != text_chestnutsAlergies
 
 def test_failed_local_storage_changes():
     driver = setup_driver()
@@ -148,24 +211,36 @@ def test_failed_local_storage_changes():
     alergiesMaybe.click()
     wallnutsAlergies.click()
 
+    text_organizerName = organizerName.get_attribute('value')
+    text_birthdayName = birthdayName.get_attribute('value')
+    text_age = age.get_attribute('value')
+    text_when = when.get_attribute('value')
+    text_time_party = time_party.get_attribute('value')
+    text_persons21 = persons21.get_attribute('text')
+    text_persons11 = persons11.get_attribute('text')
+    text_alergiesMaybe = alergiesMaybe.get_attribute('value')
+    text_alergiesYes = alergiesYes.get_attribute('value')
+    text_wallnutsAlergies = wallnutsAlergies.get_attribute('value')
+    text_chestnutsAlergies = chestnutsAlergies.get_attribute('value')
+
     storage_org = driver.execute_script(f'return localStorage.getItem("Organizer")')
-    assert storage_org == ORGANIZER
+    assert storage_org == text_organizerName
     storage_bp = driver.execute_script(f'return localStorage.getItem("Birthday_Person")')
-    assert storage_bp == B_PERSON
+    assert storage_bp == text_birthdayName
     storage_age = driver.execute_script(f'return localStorage.getItem("Age")')
-    assert storage_age == AGE1
+    assert storage_age == text_age
     storage_date = driver.execute_script(f'return localStorage.getItem("Date")')
-    assert storage_date == DATE
+    assert storage_date == text_when
     storage_time = driver.execute_script(f'return localStorage.getItem("Time")')
-    dt = datetime.strptime(TIME, '%I:%M%p')
-    TIME_24h = dt.strftime('%H:%M')
-    assert storage_time == TIME_24h
+    #dt = datetime.strptime(TIME, '%I:%M%p')
+    #TIME_24h = dt.strftime('%H:%M')
+    assert storage_time == text_time_party
     storage_pers = driver.execute_script(f'return localStorage.getItem("Number_Of_People")')
-    assert storage_pers == PERSON21
+    assert storage_pers == text_persons21
     storage_allergies = driver.execute_script(f'return localStorage.getItem("alergy")')
-    assert storage_allergies == ALLERGIES_MAYBE
+    assert storage_allergies == text_alergiesMaybe
     storage_which_allergies = driver.execute_script(f'return localStorage.getItem("alergies")')
-    assert storage_which_allergies == ALERGY_TYPES_W
+    assert storage_which_allergies == text_wallnutsAlergies
 
     organizerName.clear()
     organizerName.send_keys(ORGANIZER_FULL_NAME)
@@ -181,24 +256,37 @@ def test_failed_local_storage_changes():
     persons11.click()
     alergiesNo.click()
 
+    text_organizerName = organizerName.get_attribute('value')
+    text_birthdayName = birthdayName.get_attribute('value')
+    text_age = age.get_attribute('value')
+    text_when = when.get_attribute('value')
+    text_time_party = time_party.get_attribute('value')
+    text_persons21 = persons21.get_attribute('text')
+    text_persons11 = persons11.get_attribute('text')
+    text_alergiesMaybe = alergiesMaybe.get_attribute('value')
+    text_alergiesYes = alergiesYes.get_attribute('value')
+    text_alergiesNo = alergiesNo.get_attribute('value')
+    text_wallnutsAlergies = wallnutsAlergies.get_attribute('value')
+    text_chestnutsAlergies = chestnutsAlergies.get_attribute('value')
+
     storage_org = driver.execute_script(f'return localStorage.getItem("Organizer")')
-    assert storage_org == ORGANIZER_FULL_NAME
+    assert storage_org == text_organizerName
     storage_bp = driver.execute_script(f'return localStorage.getItem("Birthday_Person")')
-    assert storage_bp == B_PERSON_FULL_NAME
+    assert storage_bp == text_birthdayName
     storage_age = driver.execute_script(f'return localStorage.getItem("Age")')
-    assert storage_age == AGE_REAL
+    assert storage_age == text_age
     storage_date = driver.execute_script(f'return localStorage.getItem("Date")')
-    assert storage_date == REAL_DATE
+    assert storage_date == text_when
     storage_time = driver.execute_script(f'return localStorage.getItem("Time")')
-    dt = datetime.strptime(REAL_TIME, '%I:%M%p')
-    TIME_24h = dt.strftime('%H:%M')
-    assert storage_time == TIME_24h
+    #dt = datetime.strptime(REAL_TIME, '%I:%M%p')
+    #TIME_24h = dt.strftime('%H:%M')
+    assert storage_time == text_time_party
     storage_pers = driver.execute_script(f'return localStorage.getItem("Number_Of_People")')
-    assert storage_pers == PERSON11
+    assert storage_pers == text_persons11
     storage_allergies = driver.execute_script(f'return localStorage.getItem("alergy")')
-    assert storage_allergies == ALLERGIES_NO
+    assert storage_allergies == text_alergiesNo
     storage_which_allergies = driver.execute_script(f'return localStorage.getItem("alergies")')
-    assert storage_which_allergies != ALERGY_TYPES_W
+    assert storage_which_allergies != text_wallnutsAlergies
 
 def test_failed_local_storage_changes_duple_click_alergies():
     driver = setup_driver()
@@ -218,24 +306,37 @@ def test_failed_local_storage_changes_duple_click_alergies():
     alergiesMaybe.click()
     wallnutsAlergies.click()
 
+    text_organizerName = organizerName.get_attribute('value')
+    text_birthdayName = birthdayName.get_attribute('value')
+    text_age = age.get_attribute('value')
+    text_when = when.get_attribute('value')
+    text_time_party = time_party.get_attribute('value')
+    text_persons21 = persons21.get_attribute('text')
+    text_persons11 = persons11.get_attribute('text')
+    text_alergiesMaybe = alergiesMaybe.get_attribute('value')
+    text_alergiesYes = alergiesYes.get_attribute('value')
+    text_alergiesNo = alergiesNo.get_attribute('value')
+    text_wallnutsAlergies = wallnutsAlergies.get_attribute('value')
+    text_chestnutsAlergies = chestnutsAlergies.get_attribute('value')
+
     storage_org = driver.execute_script(f'return localStorage.getItem("Organizer")')
-    assert storage_org == ORGANIZER
+    assert storage_org == text_organizerName
     storage_bp = driver.execute_script(f'return localStorage.getItem("Birthday_Person")')
-    assert storage_bp == B_PERSON
+    assert storage_bp == text_birthdayName
     storage_age = driver.execute_script(f'return localStorage.getItem("Age")')
-    assert storage_age == AGE1
+    assert storage_age == text_age
     storage_date = driver.execute_script(f'return localStorage.getItem("Date")')
-    assert storage_date == DATE
+    assert storage_date == text_when
     storage_time = driver.execute_script(f'return localStorage.getItem("Time")')
-    dt = datetime.strptime(TIME, '%I:%M%p')
-    TIME_24h = dt.strftime('%H:%M')
-    assert storage_time == TIME_24h
+    #dt = datetime.strptime(TIME, '%I:%M%p')
+    #TIME_24h = dt.strftime('%H:%M')
+    assert storage_time == text_time_party
     storage_pers = driver.execute_script(f'return localStorage.getItem("Number_Of_People")')
-    assert storage_pers == PERSON21
+    assert storage_pers == text_persons21
     storage_allergies = driver.execute_script(f'return localStorage.getItem("alergy")')
-    assert storage_allergies == ALLERGIES_MAYBE
+    assert storage_allergies == text_alergiesMaybe
     storage_which_allergies = driver.execute_script(f'return localStorage.getItem("alergies")')
-    assert storage_which_allergies == ALERGY_TYPES_W
+    assert storage_which_allergies == text_wallnutsAlergies
 
     organizerName.clear()
     organizerName.send_keys(ORGANIZER_FULL_NAME)
@@ -253,21 +354,34 @@ def test_failed_local_storage_changes_duple_click_alergies():
     for i in range(5):
         wallnutsAlergies.click()
     chestnutsAlergies.click()
+
+    text_organizerName = organizerName.get_attribute('value')
+    text_birthdayName = birthdayName.get_attribute('value')
+    text_age = age.get_attribute('value')
+    text_when = when.get_attribute('value')
+    text_time_party = time_party.get_attribute('value')
+    text_persons11 = persons11.get_attribute('text')
+    text_alergiesMaybe = alergiesMaybe.get_attribute('value')
+    text_alergiesYes = alergiesYes.get_attribute('value')
+    text_alergiesNo = alergiesNo.get_attribute('value')
+    text_wallnutsAlergies = wallnutsAlergies.get_attribute('value')
+    text_chestnutsAlergies = chestnutsAlergies.get_attribute('value')
+
     storage_org = driver.execute_script(f'return localStorage.getItem("Organizer")')
-    assert storage_org == ORGANIZER_FULL_NAME
+    assert storage_org == text_organizerName
     storage_bp = driver.execute_script(f'return localStorage.getItem("Birthday_Person")')
-    assert storage_bp == B_PERSON_FULL_NAME
+    assert storage_bp == text_birthdayName
     storage_age = driver.execute_script(f'return localStorage.getItem("Age")')
-    assert storage_age == AGE_REAL
+    assert storage_age == text_age
     storage_date = driver.execute_script(f'return localStorage.getItem("Date")')
-    assert storage_date == REAL_DATE
+    assert storage_date == text_when
     storage_time = driver.execute_script(f'return localStorage.getItem("Time")')
-    dt = datetime.strptime(REAL_TIME, '%I:%M%p')
-    TIME_24h = dt.strftime('%H:%M')
-    assert storage_time == TIME_24h
+    #dt = datetime.strptime(REAL_TIME, '%I:%M%p')
+    #TIME_24h = dt.strftime('%H:%M')
+    assert storage_time == text_time_party
     storage_pers = driver.execute_script(f'return localStorage.getItem("Number_Of_People")')
-    assert storage_pers == PERSON11
+    assert storage_pers == text_persons11
     storage_allergies = driver.execute_script(f'return localStorage.getItem("alergy")')
-    assert storage_allergies == ALLERGIES_YES
+    assert storage_allergies == text_alergiesYes
     storage_which_allergies = driver.execute_script(f'return localStorage.getItem("alergies")')
-    assert storage_which_allergies == ALERGY_TYPES_C
+    assert storage_which_allergies == text_chestnutsAlergies
