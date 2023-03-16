@@ -10,6 +10,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+
 def setup_driver():
     options = webdriver.ChromeOptions()
     options.add_argument("-incognito")
@@ -26,15 +27,17 @@ def test_correct_total():
     driver.execute_script("window.scrollBy(0, 450);")
     time.sleep(1)
     buttons = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'button[class="btn btn-primary btnPlus"]')))
+
     #random_indices = random.sample(range(len(buttons)), 6)
     #random_indices = [0, 1, 3, 2, 9, 10, 11]
     random_numbers = random.sample(range(4), 4) + random.sample(range(9, 12), 2)
     for i, index in enumerate(random_numbers):
         buttons[index].click()
-        time.sleep(3)
+        WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, '#listaItema li:nth-child(' + str(i + 1) + ')')))
         if i == len(random_numbers) - 1:
             buttons[index].click()
-            time.sleep(3)
+            WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, '#listaItema li:nth-child(' + str(i + 1) + ')')))
+            time.sleep(2)
 
     price_list = []
     for i in random_numbers:
